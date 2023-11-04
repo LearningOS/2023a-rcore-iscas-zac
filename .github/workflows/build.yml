@@ -35,8 +35,8 @@ jobs:
       - name: Run tests
         run: |
           echo "I'm here"
-          cat /usr/local/cargo/config
-          cat /usr/local/cargo/config.toml
+          [ -f "/usr/local/cargo/config" ] && cat /usr/local/cargo/config
+          [ -f "/usr/local/cargo/config.toml" ] && cat /usr/local/cargo/config.toml
           echo $RUSTUP_UPDATE_ROOT
           echo $RUSTUP_DIST_SERVER
           unset $RUSTUP_UPDATE_ROOT
