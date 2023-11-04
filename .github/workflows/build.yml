@@ -41,8 +41,10 @@ jobs:
           git clone https://github.com/LearningOS/rCore-Tutorial-Test-2023A.git ci-user/user
           cd ci-user
           echo "I'm here"
-          cat ~/.cargo/config
-          rm ~/.cargo/config
+          ls ~/.cargo
+          cat ./cargo/config
+          echo $RUSTUP_UPDATE_ROOT
+          echo $RUSTUP_DIST_SERVER
           cargo install crm
           crm default
           crm current
