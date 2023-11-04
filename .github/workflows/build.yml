@@ -35,6 +35,8 @@ jobs:
       - name: Run tests
         run: |
           qemu-system-riscv64 --version
+          cargo install crm
+          crm default
           rustup target add riscv64gc-unknown-none-elf
           git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
           git clone https://github.com/LearningOS/rCore-Tutorial-Checker-2023A.git ci-user
