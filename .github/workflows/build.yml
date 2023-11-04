@@ -42,7 +42,7 @@ jobs:
           cd ci-user
           echo "I'm here"
           ls ~/
-          cat ./cargo/config
+          cat ./.cargo/config
           echo $RUSTUP_UPDATE_ROOT
           echo $RUSTUP_DIST_SERVER
           cargo install crm
