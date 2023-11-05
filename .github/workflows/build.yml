@@ -27,17 +27,26 @@ jobs:
   basic-test:
     runs-on: ubuntu-latest
     outputs:
-      points: ${{ steps.end.outputs.points}}
+      points: ${{ steps.end.outputs.points }}
     container:
       image: duskmoon/dev-env:rcore-ci
     steps:
       - uses: actions/checkout@v4
       - name: Run tests
         run: |
+          [ -f "/usr/local/cargo/config" ] && cat /usr/local/cargo/config && rm /usr/local/cargo/config
+          [ -f "/usr/local/cargo/config.toml" ] && cat /usr/local/cargo/config.toml && rm /usr/local/cargo/config.toml
+          echo $RUSTUP_UPDATE_ROOT
+          echo $RUSTUP_DIST_SERVER
+          unset RUSTUP_UPDATE_ROOT
+          unset RUSTUP_DIST_SERVER
+          cargo install crm
+          crm default
+          crm current
           qemu-system-riscv64 --version
           rustup target add riscv64gc-unknown-none-elf
           git config --global --add safe.directory /__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}
-          git clone https://github.com/LearningOS/rCore-Tutorial-Checker-2023A.git ci-user
+          git clone https://github.com/iscas-zac/rCore-Tutorial-Checker-2023A.git ci-user
           git clone https://github.com/LearningOS/rCore-Tutorial-Test-2023A.git ci-user/user
           ID=`git rev-parse --abbrev-ref HEAD | grep -oP 'ch\K[0-9]'`
           # cd ci-user && make test CHAPTER=$ID passwd=${{ secrets.BASE_TEST_TOKEN }}
